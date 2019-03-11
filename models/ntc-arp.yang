@@ -1,0 +1,31 @@
+module ntc-arp {
+    namespace "http://networktocode.com/yang/arp";
+
+    prefix "ntc-arp";
+
+    organization "Network to Code, LLC.";
+    contact "gabriele@networktocode.com";
+    description
+        "NTC Model for ARP";
+
+    revision 2019-03-08 {
+        description "Initial revision for early testing.";
+    }
+    container ntc-arp {
+        list entry {
+            key "address";
+            leaf address {
+                type string;
+            }
+            leaf age {
+                type string;
+            }
+            leaf interface {
+                type string;
+            }
+            leaf mac-address {
+                type string;
+            }
+        }
+    }
+}

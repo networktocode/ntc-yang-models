@@ -1,0 +1,44 @@
+module ntc-snmp {
+    namespace "http://networktocode.com/yang/snmp";
+
+    prefix "ntc-snmp";
+
+    organization "Network to Code, LLC.";
+    contact "gabriele@networktocode.com";
+    description
+        "NTC Model for SNMP";
+
+    revision 2019-03-01 {
+        description "Initial revision for early testing.";
+    }
+
+    container ntc-snmp {
+        list community {
+            key "name";
+            leaf name {
+            type string {
+                 length "0..20";
+                 pattern "[0-9a-fA-F]*";
+             }
+            }
+            leaf security-name {
+                type string {
+                     length "0..20";
+                     pattern "[0-9a-fA-F]*";
+                 }
+            }
+        }
+        leaf contact {
+            type string {
+                 length "0..20";
+                 pattern "[0-9a-fA-F]*";
+             }
+        }
+        leaf location {
+            type string {
+                 length "0..20";
+                 pattern "[0-9a-fA-F]*";
+             }
+        }
+    }
+}

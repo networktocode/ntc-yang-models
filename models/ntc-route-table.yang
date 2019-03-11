@@ -1,0 +1,44 @@
+module ntc-route-table {
+    namespace "http://networktocode.com/yang/route-table";
+
+    prefix "ntc-route-table";
+
+    organization "Network to Code, LLC.";
+    contact "gabriele@networktocode.com";
+    description
+        "NTC Model for routing table";
+
+    revision 2019-03-10 {
+        description "Initial revision for early testing.";
+    }
+
+    container ntc-route {
+        list entry {
+            key "network";
+            leaf network {
+                type string;
+            }
+            leaf protocol {
+                type string;
+            }
+            leaf type {
+                type string;
+            }
+            leaf distance {
+                type string;
+            }
+            leaf metric {
+                type string;
+            }
+            leaf nexthop_ip {
+                type string;
+            }
+            leaf nexthop_if {
+                type string;
+            }
+            leaf uptime {
+                type string;
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+module ntc-vlans {
+    namespace "http://networktocode.com/yang/vlans";
+
+    prefix "ntc-vlans";
+
+    organization "Network to Code, LLC.";
+    contact "jason@networktocode.com";
+    description
+        "NTC Model for VLANs";
+
+    revision 2019-02-26 {
+        description "Initial revision for early testing.";
+    }
+
+    container ntc-vlans {
+        list vlan {
+            key "id";
+            leaf id {
+                type uint16;
+            }
+            leaf name {
+                type string;
+            }
+        }
+    }
+}
