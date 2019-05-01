@@ -1,0 +1,77 @@
+module ntc-oc-vlan {
+    yang-version "1";
+
+    namespace "https://github.com/networktocode/ntc-yang-models/models/vlan/ntc-oc-vlan.yang";
+
+    prefix "ntc-oc-vlan";
+
+    grouping vlan-config {
+        description "VLAN configuration container.";
+
+        leaf vlan-id {
+          type oc-vlan-types:vlan-id;
+          description "Interface VLAN id.";
+        }
+
+        leaf name {
+          type string;
+          description "Interface VLAN name.";
+        }
+
+        leaf status {
+          type enumeration {
+            enum ACTIVE {
+              description "VLAN is active";
+            }
+            enum SUSPENDED {
+              description "VLAN is inactive / suspended";
+            }
+          }
+          default ACTIVE;
+          description "Admin state of the VLAN";
+        }
+
+    }
+
+    grouping vlan-state {
+        description "State variables for VLANs";
+
+        // placeholder
+
+    }
+
+    grouping vlan-top {
+        description "Top-level grouping for VLAN configuration";
+
+        container vlans {
+            description "Container for VLAN configuration and state
+            variables";
+
+            list vlan {
+                key "vlan-id";
+
+                description "Configured VLANs keyed by id";
+
+                leaf vlan-id {
+                    type leafref {
+                        path "../config/vlan-id";
+                    }
+                    description "references the configured vlan-id";
+                }
+
+                container config {
+                    description "Configuration parameters for VLANs";
+                    uses vlan-config;
+                }
+
+                container state {
+                    config false;
+                    description "State variables for VLANs";
+
+                    uses vlan-config;
+                    uses vlan-state;
+                }
+            }
+        }
+    }
+}

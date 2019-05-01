@@ -1,0 +1,471 @@
+module ntc-openconfig-system {
+
+    yang-version "1";
+
+    namespace "https://github.com/networktocode/ntc-yang-models/models/system/ntc-openconfig-system.yang";
+
+    prefix "ntc-oc-sys";
+
+  // import some basic types
+  import openconfig-inet-types { prefix oc-inet; }
+  import openconfig-yang-types { prefix oc-yang; }
+  import openconfig-types { prefix oc-types; }
+  import openconfig-extensions { prefix oc-ext; }
+
+  // ntc specific
+  import ntc-snmp { prefix ntc-snmp; }
+
+  // OpenConfig specific extensions for module metadata.
+  oc-ext:regexp-posix;
+  oc-ext:catalog-organization "openconfig";
+  oc-ext:origin "openconfig";
+
+  // extension statements
+
+  // feature statements
+
+  // identity statements
+
+  identity NTP_AUTH_TYPE {
+    description
+      "Base identity for encryption schemes supported for NTP
+      authentication keys";
+  }
+
+  identity NTP_AUTH_MD5 {
+    base NTP_AUTH_TYPE;
+    description
+      "MD5 encryption method";
+  }
+
+  // typedef statements
+
+  typedef timezone-name-type {
+    type string;
+    description
+      "A time zone name as used by the Time Zone Database,
+       sometimes referred to as the 'Olson Database'.
+
+       The exact set of valid values is an implementation-specific
+       matter.  Client discovery of the exact set of time zone names
+       for a particular server is out of scope.";
+    reference
+      "BCP 175: Procedures for Maintaining the Time Zone Database";
+   }
+
+  // grouping statements
+
+  grouping system-global-config {
+    description "system-wide configuration parameters";
+
+    leaf hostname {
+      type oc-inet:domain-name;
+      description
+        "The hostname of the device -- should be a single domain
+        label, without the domain.";
+    }
+
+    leaf domain-name {
+      type oc-inet:domain-name;
+      description
+        "Specifies the domain name used to form fully qualified name
+        for unqualified hostnames.";
+    }
+
+    leaf login-banner {
+      type string;
+      description
+        "The console login message displayed before the login prompt,
+        i.e., before a user logs into the system.";
+    }
+
+    leaf motd-banner {
+      type string;
+      description
+        "The console message displayed after a user logs into the
+        system.  They system may append additional standard
+        information such as the current system date and time, uptime,
+        last login timestamp, etc.";
+    }
+  }
+
+  grouping system-global-state {
+    description
+      "Global operational state data for the system";
+
+    leaf current-datetime {
+        type oc-yang:date-and-time;
+        description
+          "The current system date and time.";
+    }
+
+    leaf boot-time {
+        type oc-types:timeticks64;
+        description
+          "This timestamp indicates the time that the system was last
+          restarted.  The value is the timestamp in seconds relative
+          to the Unix Epoch (Jan 1, 1970 00:00:00 UTC).";
+    }
+
+  }
+
+  grouping system-ntp-server-config {
+    description
+      "Configuration data for NTP servers";
+
+    leaf address {
+      type oc-inet:host;
+      description
+        "The address or hostname of the NTP server.";
+    }
+
+    leaf port {
+      type oc-inet:port-number;
+      default 123;
+      description
+        "The port number of the NTP server.";
+    }
+
+    leaf version {
+      type uint8 {
+        range 1..4;
+      }
+      default 4;
+      description
+        "Version number to put in outgoing NTP packets";
+    }
+
+    leaf association-type {
+      type enumeration {
+        enum SERVER {
+          description
+            "Use client association mode.  This device
+             will not provide synchronization to the
+             configured NTP server.";
+        }
+        enum PEER {
+          description
+            "Use symmetric active association mode.
+             This device may provide synchronization
+             to the configured NTP server.";
+        }
+        enum POOL {
+          description
+            "Use client association mode with one or
+             more of the NTP servers found by DNS
+             resolution of the domain name given by
+             the 'address' leaf.  This device will not
+             provide synchronization to the servers.";
+        }
+      }
+      default SERVER;
+      description
+        "The desired association type for this NTP server.";
+    }
+    leaf iburst {
+      type boolean;
+      default false;
+      description
+        "Indicates whether this server should enable burst
+        synchronization or not.";
+    }
+    leaf prefer {
+      type boolean;
+      default false;
+      description
+        "Indicates whether this server should be preferred
+        or not.";
+    }
+  }
+
+  grouping system-ntp-server-state {
+    description
+      "Operational state data for NTP servers";
+
+    leaf stratum {
+      type uint8;
+      description
+        "Indicates the level of the server in the NTP hierarchy. As
+        stratum number increases, the accuracy is degraded.  Primary
+        servers are stratum while a maximum value of 16 indicates
+        unsynchronized.  The values have the following specific
+        semantics:
+
+        | 0      | unspecified or invalid
+        | 1      | primary server (e.g., equipped with a GPS receiver)
+        | 2-15   | secondary server (via NTP)
+        | 16     | unsynchronized
+        | 17-255 | reserved";
+      reference
+        "RFC 5905 - Network Time Protocol Version 4: Protocol and
+        Algorithms Specification";
+    }
+
+    leaf root-delay {
+      type uint32;
+      // TODO: reconsider units for these values -- the spec defines
+      // rootdelay and rootdisperson as 2 16-bit integers for seconds
+      // and fractional seconds, respectively.  This gives a
+      // precision of ~15 us (2^-16).  Using milliseconds here based
+      // on what implementations typically provide and likely lack
+      // of utility for less than millisecond precision with NTP
+      // time sync.
+      units "milliseconds";
+      description
+        "The round-trip delay to the server, in milliseconds.";
+      reference
+        "RFC 5905 - Network Time Protocol Version 4: Protocol and
+        Algorithms Specification";
+    }
+
+    leaf root-dispersion {
+      type uint64;
+      units "milliseconds";
+      description
+        "Dispersion (epsilon) represents the maximum error inherent
+        in the measurement";
+      reference
+        "RFC 5905 - Network Time Protocol Version 4: Protocol and
+        Algorithms Specification";
+    }
+
+    leaf offset {
+      type uint64;
+      units "milliseconds";
+      description
+        "Estimate of the current time offset from the peer.  This is
+        the time difference between the local and reference clock.";
+    }
+
+    leaf poll-interval {
+      type uint32;
+      units "seconds";
+      description
+        "Polling interval of the peer";
+    }
+  }
+
+  grouping system-ntp-server-top {
+    description
+      "Top-level grouping for the list of NTP servers";
+
+    container servers {
+      description
+        "Enclosing container for the list of NTP servers";
+
+      list server {
+        key "address";
+        description
+          "List of NTP servers to use for system clock
+          synchronization.  If '/system/ntp/enabled'
+          is 'true', then the system will attempt to
+          contact and utilize the specified NTP servers.";
+
+        leaf address {
+          type leafref {
+            path "../config/address";
+          }
+          description
+            "References the configured address or hostname of the
+            NTP server.";
+        }
+
+        container config {
+          description
+            "Configuration data for an NTP server.";
+
+          uses system-ntp-server-config;
+        }
+
+        container state {
+
+          config false;
+
+          description
+            "Operational state data for an NTP server.";
+
+          uses system-ntp-server-config;
+          uses system-ntp-server-state;
+        }
+
+      }
+    }
+  }
+
+  grouping system-ntp-auth-keys-config {
+    description
+      "Configuration data ";
+
+    leaf key-id {
+      type uint16;
+      description
+        "Integer identifier used by the client and server to
+        designate a secret key.  The client and server must use
+        the same key id.";
+    }
+
+    leaf key-type {
+      type identityref {
+        base NTP_AUTH_TYPE;
+      }
+      description
+        "Encryption type used for the NTP authentication key";
+    }
+
+    leaf key-value {
+      type string;
+      description
+        "NTP authentication key value";
+    }
+  }
+
+  grouping system-ntp-auth-keys-state {
+    description
+      "Operational state data for NTP auth key data";
+  }
+
+  grouping system-ntp-auth-keys-top {
+    description
+      "Top-level grouping for NTP auth key data";
+
+    container ntp-keys {
+      description
+        "Enclosing container for list of NTP authentication keys";
+
+      list ntp-key {
+        key "key-id";
+        description
+          "List of NTP authentication keys";
+
+        leaf key-id {
+          type leafref {
+            path "../config/key-id";
+          }
+          description
+            "Reference to auth key-id list key";
+        }
+
+        container config {
+          description
+            "Configuration data for NTP auth keys";
+
+          uses system-ntp-auth-keys-config;
+        }
+
+        container state {
+
+          config false;
+
+          description
+            "Operational state data for NTP auth keys";
+
+          uses system-ntp-auth-keys-config;
+          uses system-ntp-auth-keys-state;
+        }
+      }
+    }
+  }
+
+  grouping system-ntp-config {
+    description
+      "Configuration data for system-wide NTP operation.";
+
+    leaf enabled {
+      type boolean;
+      default false;
+      description
+        "Enables the NTP protocol and indicates that the system should
+        attempt to synchronize the system clock with an NTP server
+        from the servers defined in the 'ntp/server' list.";
+    }
+
+    leaf ntp-source-address {
+      type oc-inet:ip-address;
+      description
+        "Source address to use on outgoing NTP packets";
+    }
+
+    leaf enable-ntp-auth {
+      type boolean;
+      default false;
+      description
+        "Enable or disable NTP authentication -- when enabled, the
+        system will only use packets containing a trusted
+        authentication key to synchronize the time.";
+    }
+  }
+
+  grouping system-ntp-state {
+    description
+      "Operational state data for system-wide NTP operation.";
+
+    leaf auth-mismatch {
+      type oc-yang:counter64;
+      description
+        "Count of the number of NTP packets received that were not
+        processed due to authentication mismatch.";
+    }
+  }
+
+  grouping system-ntp-top {
+    description
+      "Top-level grouping for configuration and state data for NTP";
+
+    container ntp {
+      description
+        "Top-level container for NTP configuration and state";
+
+      container config {
+        description
+          "Configuration data for NTP client.";
+
+        uses system-ntp-config;
+      }
+
+      container state {
+        config false;
+        description
+          "Operational state data for NTP services.";
+
+        uses system-ntp-config;
+        uses system-ntp-state;
+      }
+      uses system-ntp-auth-keys-top;
+      uses system-ntp-server-top;
+    }
+  }
+
+  grouping system-top {
+    description
+      "Top level system data containers";
+
+    container system {
+      description
+        "Enclosing container for system-related configuration and
+        operational state data";
+
+      container config {
+        description "Global configuration data for the system";
+
+        uses system-global-config;
+
+      }
+
+      container state {
+        config false;
+        description "Global operational state data for the system";
+
+        uses system-global-config;
+        uses system-global-state;
+      }
+
+      uses system-ntp-top;
+      uses ntc-snmp:snmp-top;
+    }
+  }
+
+  // data definition statements
+
+  uses system-top;
+
+}

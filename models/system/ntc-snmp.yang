@@ -1,0 +1,66 @@
+module ntc-snmp {
+    yang-version "1";
+
+    namespace "https://github.com/networktocode/ntc-yang-models/models/system/ntc-snmp.yang";
+
+    prefix "ntc-snmp";
+
+    grouping community-config {
+        leaf name {
+            type string;
+        }
+        leaf-list clients {
+            type string; // TODO: this should be an IPv{4,6}
+        }
+    }
+
+    grouping communities-top {
+        container communities {
+            list community {
+                key name;
+                leaf name {
+                    type leafref {
+                        path "../config/name";
+                    }
+                }
+                container config {
+                    uses community-config;
+                }
+                container state {
+                    config false;
+                    uses community-config;
+                }
+            }
+        }
+    }
+
+    grouping snmp-config {
+        leaf name {
+            type string;
+        }
+        leaf description {
+            type string;
+        }
+        leaf contact {
+            type string;
+        }
+        leaf location {
+            type string;
+        }
+    }
+
+    grouping snmp-top {
+        container snmp {
+            uses communities-top;
+
+            container config {
+                uses snmp-config;
+            }
+
+            container state {
+                config false;
+                uses snmp-config;
+            }
+        }
+    }
+}

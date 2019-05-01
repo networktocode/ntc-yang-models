@@ -1,0 +1,99 @@
+module ntc-oc-network-instance {
+
+    yang-version "1";
+
+    namespace "https://github.com/networktocode/ntc-yang-models/models/network-instance/ntc-oc-network-instance.yang";
+
+    prefix "ntc-oc-netinst";
+
+    import ietf-yang-types { prefix "yang"; }
+    import ntc-oc-vlan { prefix "ntc-oc-vlan"; }
+
+    grouping network-instance-config {
+        description
+            "Configuration parameters relating to a top-level network
+            instance";
+
+        leaf name {
+            type string;
+            description
+                "An operator-assigned unique name for the forwarding
+                instance";
+        }
+
+        //  leaf type {
+        //      type identityref {
+        //          base "oc-ni-types:NETWORK_INSTANCE_TYPE";
+        //      }
+        //      description
+        //          "The type of network instance. The value of this leaf
+        //          indicates the type of forwarding entries that should be
+        //          supported by this network instance. Signalling protocols
+        //          also use the network instance type to infer the type of
+        //          service they advertise; for example MPLS signalling
+        //          for an L2VSI network instance would infer a VPLS service
+        //          whereas a type of L2PTP would infer a VPWS (pseudo-wire)
+        //          service";
+        //  }
+
+        leaf enabled {
+            type boolean;
+            description
+                "Whether the network instance should be configured to be
+                active on the network element";
+        }
+
+        leaf description {
+            type string;
+            description
+                "A free-form string to be used by the network operator to
+                describe the function of this network instance";
+        }
+
+        leaf router-id {
+            type yang:dotted-quad;
+            description
+                "A identifier for the local network instance - typically
+                used within associated routing protocols or signalling
+                routing information in another network instance";
+        }
+
+        //  leaf route-distinguisher {
+        //      type oc-ni-types:route-distinguisher;
+        //      description
+        //          "The route distinguisher that should be used for the local
+        //          VRF or VSI instance when it is signalled via BGP.";
+        // }
+    }
+
+
+    grouping network-instance-top {
+        description
+            "Top-level grouping containing a list of network instances.";
+
+        container network-instances {
+            list network-instance {
+                key "name";
+
+                leaf name {
+                    type leafref {
+                        path "../config/name";
+                    }
+                }
+
+                container config {
+                    uses network-instance-config;
+                }
+
+                container state {
+                    uses network-instance-config;
+                    config false;
+                }
+
+                uses ntc-oc-vlan:vlan-top;
+            }
+        }
+    }
+
+  uses network-instance-top;
+}
