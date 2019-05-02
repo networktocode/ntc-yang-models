@@ -4,6 +4,7 @@ import pathlib
 import pytest
 
 from yangson import exceptions
+from yangson.enumerations import ContentType
 
 basepath = pathlib.Path(__file__).parent
 
@@ -14,25 +15,20 @@ def get_data(model, filename):
 
 
 class TestARP:
-    def test_correct(self, datamodel):
-        data = datamodel.from_raw(get_data("arp", "correct.json"))
+    def test_correct_config(self, datamodel):
+        data = datamodel.from_raw(get_data("arp", "correct_config.json"))
         data.validate()
+
+    def test_correct_state(self, datamodel):
+        data = datamodel.from_raw(get_data("arp", "correct_state.json"))
+        data.validate(ctype=ContentType.all)
 
     def test_missing_vrf(self, datamodel):
         data = datamodel.from_raw(get_data("arp", "missing_vrf.json"))
         with pytest.raises(exceptions.SemanticError) as e:
             data.validate()
 
-    #  def test_missing_vlan_id(self, datamodel):
-    #      data = datamodel.from_raw(get_data("vlan", "missing_vlan_id.json"))
-    #      with pytest.raises(exceptions.SchemaError) as e:
-    #          data.validate()
-
-    #  def test_vlan_id_string(self, datamodel):
-    #      with pytest.raises(exceptions.RawTypeError) as e:
-    #          datamodel.from_raw(get_data("vlan", "vlan_id_string.json"))
-
-    #  def test_vlan_id_wrong_number(self, datamodel):
-    #      data = datamodel.from_raw(get_data("vlan", "vlan_id_wrong_number.json"))
-    #      with pytest.raises(exceptions.YangTypeError) as e:
-    #          data.validate()
+    def test_vrf_mixed_up(self, datamodel):
+        data = datamodel.from_raw(get_data("arp", "vrf_mixed_up.json"))
+        with pytest.raises(exceptions.SemanticError) as e:
+            data.validate(ctype=ContentType.all)
