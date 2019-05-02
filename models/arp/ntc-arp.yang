@@ -1,0 +1,78 @@
+module ntc-arp {
+    yang-version "1";
+
+    namespace "https://networktocode.com/yang/arp";
+
+    prefix "ntc-arp";
+
+    import ntc-vrf { prefix "ntc-vrf"; }
+
+    revision "2019-05-02" {
+        description
+            "initial version";
+        reference "0.0.1";
+    }
+
+    grouping arp-config {
+        leaf timeout {
+            type uint16;
+        }
+    }
+
+    grouping entries-common-top {
+        key ip-address;
+        leaf ip-address {
+            type string; // TODO: this should be an ip address
+            mandatory true;
+        }
+
+        leaf hw-address {
+            type string; // TODO: this should be a valid mac-address
+            mandatory true;
+        }
+    }
+
+    grouping entries-config-top {
+        list entries {
+            uses entries-common-top;
+
+            leaf vrf {
+                type leafref {
+                    path "/ntc-vrf:vrf/ntc-vrf:config/ntc-vrf:vrfs/ntc-vrf:name";
+                }
+                mandatory true;
+            }
+        }
+    }
+
+    grouping entries-state-top {
+        list entries {
+            uses entries-common-top;
+
+            leaf vrf {
+                type leafref {
+                    path "/ntc-vrf:vrf/ntc-vrf:state/ntc-vrf:vrfs/ntc-vrf:name";
+                }
+                mandatory true;
+            }
+        }
+    }
+
+    grouping arp-top {
+        container arp {
+            container config {
+                uses arp-config;
+                uses entries-config-top;
+            }
+
+            container state {
+                config false;
+
+                uses arp-config;
+                uses entries-state-top;
+            }
+        }
+    }
+
+    uses arp-top;
+}

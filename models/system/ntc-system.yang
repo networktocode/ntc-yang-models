@@ -1,0 +1,29 @@
+ module ntc-system {
+    yang-version "1";
+
+    namespace "https://networktocode.com/yang/system";
+
+    prefix "ntc-system";
+
+    revision "2019-05-02" {
+        description
+            "initial version";
+        reference "0.0.1";
+    }
+
+    grouping system-top {
+        container system {
+            container config {
+                uses snmp-config-top;
+            }
+
+            container state {
+                config false;
+
+                uses snmp-state-top;
+            }
+        }
+    }
+
+    uses system-top;
+}

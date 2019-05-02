@@ -1,0 +1,59 @@
+ module ntc-vlan {
+    yang-version "1";
+
+    namespace "https://networktocode.com/yang/vlan";
+
+    prefix "ntc-vlan";
+
+    revision "2019-05-02" {
+        description
+            "initial version";
+        reference "0.0.1";
+    }
+
+    grouping vlan-config {
+        leaf vlan-id {
+            type uint16 {
+              range 1..4094;
+            }
+        }
+
+        leaf name {
+          type string;
+        }
+
+        leaf active {
+            type boolean;
+            default true;
+        }
+    }
+
+    grouping vlan-state {
+        leaf-list members {
+            type string;
+        }
+    }
+
+    grouping vlan-top {
+        container vlan {
+            container config {
+                list vlans {
+                    key "vlan-id";
+
+                    uses vlan-config;
+                }
+            }
+
+            container state {
+                list vlans {
+                    key "vlan-id";
+
+                    uses vlan-config;
+                    uses vlan-state;
+                }
+            }
+        }
+    }
+
+    uses vlan-top;
+}

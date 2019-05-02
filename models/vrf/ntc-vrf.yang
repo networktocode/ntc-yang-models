@@ -1,0 +1,42 @@
+ module ntc-vrf {
+    yang-version "1";
+
+    namespace "https://networktocode.com/yang/vrf";
+
+    prefix "ntc-vrf";
+
+    revision "2019-05-02" {
+        description
+            "initial version";
+        reference "0.0.1";
+    }
+
+    grouping vrf-config {
+        leaf name {
+            type string;
+        }
+    }
+
+
+    grouping vrf-top {
+        container vrf {
+            container config {
+                list vrfs {
+                    key "name";
+
+                    uses vrf-config;
+                }
+            }
+            container state {
+                list vrfs {
+                    key "name";
+
+                    uses vrf-config;
+                }
+            }
+        }
+    }
+
+    uses vrf-top;
+
+}

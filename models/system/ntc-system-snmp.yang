@@ -1,0 +1,84 @@
+submodule ntc-system-snmp {
+    belongs-to "ntc-system" {
+        prefix "ntc-system";
+    }
+
+    revision "2019-05-02" {
+        description
+            "initial version";
+        reference "0.0.1";
+    }
+
+    typedef snmp-version {
+        type enumeration {
+            enum 1 {
+                description
+                    "SNMP version 1";
+            }
+            enum 2c {
+                description
+                    "SNMP version 2c";
+            }
+            enum 3 {
+                description
+                    "SNMP version 3";
+            }
+        }
+        description
+            "SNMP version";
+    }
+
+    grouping community-config {
+        leaf name {
+            type string;
+        }
+
+        leaf version {
+            type snmp-version;
+        }
+        container access-list {
+            leaf ipv4 {
+                type string;
+            }
+            leaf ipv6 {
+                type string;
+            }
+        }
+    }
+
+    grouping communities-top {
+        list communities {
+            key name;
+            uses community-config;
+        }
+    }
+
+    grouping snmp-config {
+        leaf name {
+            type string;
+        }
+        leaf description {
+            type string;
+        }
+        leaf contact {
+            type string;
+        }
+        leaf location {
+            type string;
+        }
+    }
+
+    grouping snmp-config-top {
+        container snmp {
+            uses communities-top;
+            uses snmp-config;
+        }
+    }
+
+    grouping snmp-state-top {
+        container snmp {
+            uses communities-top;
+            uses snmp-config;
+        }
+    }
+}
