@@ -5,6 +5,8 @@
 
     prefix "ntc-system";
 
+    include ntc-system-snmp;
+
     revision "2019-05-02" {
         description
             "initial version";

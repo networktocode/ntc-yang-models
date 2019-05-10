@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!--
+/*
+* Copyright 2015 Google, Inc.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>NTC YANG models</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/yangdoc.menu.css">
+    <link rel="stylesheet" href="css/yangdoc.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div id="yangdoc-nav" class="col-xs-4 sidebar">
+                  <ul id="tree-ntc-system">
+<li><a class="menu-module-name" href="#mod-ntc-system">ntc-system</a></li>
+<li><a href="#ntc-system-defined-types">Defined types</a>
+ <ul>
+  <li><a href="#type-snmp-version">snmp-version</a></li>
+ </ul>
+</li>
+<li><a href="#ntc-system-data">Data elements</a>
+<ul>
+ <li><a href="#system">system</a>
+ <ul>
+  <li><a href="#system-config">config</a>
+  <ul>
+   <li><a href="#system-config-snmp">snmp</a>
+   <ul>
+    <li><a href="#system-config-snmp-communities">communities</a>
+    <ul>
+     <li><a href="#system-config-snmp-communities-name">name</a>
+     <li><a href="#system-config-snmp-communities-version">version</a>
+     <li><a href="#system-config-snmp-communities-access-list">access-list</a>
+     <ul>
+      <li><a href="#system-config-snmp-communities-access-list-ipv4">ipv4</a>
+      <li><a href="#system-config-snmp-communities-access-list-ipv6">ipv6</a>
+     </ul>
+    </li>
+    </ul>
+   </li>
+    <li><a href="#system-config-snmp-name">name</a>
+    <li><a href="#system-config-snmp-description">description</a>
+    <li><a href="#system-config-snmp-contact">contact</a>
+    <li><a href="#system-config-snmp-location">location</a>
+   </ul>
+  </li>
+  </ul>
+ </li>
+  <li><a href="#system-state">state</a>
+  <ul>
+   <li><a href="#system-state-snmp">snmp</a>
+   <ul>
+    <li><a href="#system-state-snmp-communities">communities</a>
+    <ul>
+     <li><a href="#system-state-snmp-communities-name">name</a>
+     <li><a href="#system-state-snmp-communities-version">version</a>
+     <li><a href="#system-state-snmp-communities-access-list">access-list</a>
+     <ul>
+      <li><a href="#system-state-snmp-communities-access-list-ipv4">ipv4</a>
+      <li><a href="#system-state-snmp-communities-access-list-ipv6">ipv6</a>
+     </ul>
+    </li>
+    </ul>
+   </li>
+    <li><a href="#system-state-snmp-name">name</a>
+    <li><a href="#system-state-snmp-description">description</a>
+    <li><a href="#system-state-snmp-contact">contact</a>
+    <li><a href="#system-state-snmp-location">location</a>
+   </ul>
+  </li>
+  </ul>
+ </li>
+ </ul>
+</li>
+</li>
+</ul>
+</ul>
+
+                </div>
+        <div id="yangdoc-data" class="col-xs-8 col-xs-offset-4 main">
+                  <div>
+  <h1 class="module-name" id="mod-ntc-system">ntc-system</h1>
+  <h4 class="module-desc-header">Description</h4>
+  <p class="module-desc-text"></p>
+  <h4 class="module-header">Imports</h4>
+<p class="module-desc-text"></p>
+</div>
+<div>
+  <h3 class="module-types-header" id="ntc-system-defined-types">Defined types</h3>
+  <h4 class="module-type-name" id="type-snmp-version">snmp-version</h4>
+  <p class="module-type-text"><span class="module-type-text-label">description:<br />
+</span>SNMP version</p>
+  <p class="statement-info-text"><span class="statement-info-label">type</span>: enumeration</p>
+  <ul>
+  <li>1<br />SNMP version 1</li>
+  <li>3<br />SNMP version 3</li>
+  <li>2c<br />SNMP version 2c</li>
+  </ul>
+</div>
+  <h3 class="module-types-header" id="ntc-system-data">Data elements</h3>
+<div class="statement-section">
+ <h4 class="statement-name" id="system"><span class="statement-path">/</span> <br />
+system</h4>
+</div>
+ <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (rw)</p>
+<div class="statement-section">
+  <h4 class="statement-name" id="system-config"><span class="statement-path">/ntc-system:system/</span>  <br />
+config</h4>
+</div>
+  <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (rw)</p>
+<div class="statement-section">
+   <h4 class="statement-name" id="system-config-snmp"><span class="statement-path">/ntc-system:system/ntc-system:config/</span>   <br />
+snmp</h4>
+</div>
+   <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (rw)</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-config-snmp-communities"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/</span>    <br />
+communities</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: list (rw)</p>
+    <p class="statement-info-text"><span class="statement-info-label">list keys</span>:  [<a href="#system-config-snmp-communities-name">name</a>]</p>
+<div class="statement-section">
+     <h4 class="statement-name" id="system-config-snmp-communities-name"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/ntc-system:communities/</span>     <br />
+name</h4>
+</div>
+     <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (list key) (rw)</p>
+     <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+     <h4 class="statement-name" id="system-config-snmp-communities-version"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/ntc-system:communities/</span>     <br />
+version</h4>
+</div>
+     <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+     <p class="statement-info-text"><span class="statement-info-label">type</span>: snmp-version</p>
+<div class="statement-section">
+     <h4 class="statement-name" id="system-config-snmp-communities-access-list"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/ntc-system:communities/</span>     <br />
+access-list</h4>
+</div>
+     <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (rw)</p>
+<div class="statement-section">
+      <h4 class="statement-name" id="system-config-snmp-communities-access-list-ipv4"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/ntc-system:communities/ntc-system:access-list/</span>      <br />
+ipv4</h4>
+</div>
+      <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+      <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+      <h4 class="statement-name" id="system-config-snmp-communities-access-list-ipv6"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/ntc-system:communities/ntc-system:access-list/</span>      <br />
+ipv6</h4>
+</div>
+      <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+      <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-config-snmp-name"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/</span>    <br />
+name</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-config-snmp-description"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/</span>    <br />
+description</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-config-snmp-contact"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/</span>    <br />
+contact</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-config-snmp-location"><span class="statement-path">/ntc-system:system/ntc-system:config/ntc-system:snmp/</span>    <br />
+location</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (rw)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+  <h4 class="statement-name" id="system-state"><span class="statement-path">/ntc-system:system/</span>  <br />
+state</h4>
+</div>
+  <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (ro)</p>
+<div class="statement-section">
+   <h4 class="statement-name" id="system-state-snmp"><span class="statement-path">/ntc-system:system/ntc-system:state/</span>   <br />
+snmp</h4>
+</div>
+   <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (ro)</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-state-snmp-communities"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/</span>    <br />
+communities</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: list (ro)</p>
+    <p class="statement-info-text"><span class="statement-info-label">list keys</span>:  [<a href="#system-state-snmp-communities-name">name</a>]</p>
+<div class="statement-section">
+     <h4 class="statement-name" id="system-state-snmp-communities-name"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/ntc-system:communities/</span>     <br />
+name</h4>
+</div>
+     <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (list key) (ro)</p>
+     <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+     <h4 class="statement-name" id="system-state-snmp-communities-version"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/ntc-system:communities/</span>     <br />
+version</h4>
+</div>
+     <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+     <p class="statement-info-text"><span class="statement-info-label">type</span>: snmp-version</p>
+<div class="statement-section">
+     <h4 class="statement-name" id="system-state-snmp-communities-access-list"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/ntc-system:communities/</span>     <br />
+access-list</h4>
+</div>
+     <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: container (ro)</p>
+<div class="statement-section">
+      <h4 class="statement-name" id="system-state-snmp-communities-access-list-ipv4"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/ntc-system:communities/ntc-system:access-list/</span>      <br />
+ipv4</h4>
+</div>
+      <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+      <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+      <h4 class="statement-name" id="system-state-snmp-communities-access-list-ipv6"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/ntc-system:communities/ntc-system:access-list/</span>      <br />
+ipv6</h4>
+</div>
+      <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+      <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-state-snmp-name"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/</span>    <br />
+name</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-state-snmp-description"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/</span>    <br />
+description</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-state-snmp-contact"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/</span>    <br />
+contact</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+<div class="statement-section">
+    <h4 class="statement-name" id="system-state-snmp-location"><span class="statement-path">/ntc-system:system/ntc-system:state/ntc-system:snmp/</span>    <br />
+location</h4>
+</div>
+    <p class="statement-info-text"><span class="statement-info-label">nodetype</span>: leaf (ro)</p>
+    <p class="statement-info-text"><span class="statement-info-label">type</span>: string</p>
+
+                </div>
+      </div>
+    </div>
+  </body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/yangdoc.menu.js"></script>
+        <script>$('#tree-ntc-system').treed();</script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</html>
