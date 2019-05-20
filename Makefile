@@ -1,17 +1,15 @@
 BASE=models/
-OC_PYANG_PLUGINS_DIR="/src/oc-pyang/openconfig_pyang/plugins"
+PLUGINS_DIR="/src/oc-pyang/openconfig_pyang/plugins"
 
-PYANG=docker run --rm -v $(PWD):/ntc-yang-models oc-pyang pyang
-PYTEST=docker run --rm -v $(PWD):/ntc-yang-models yangson pytest
-YANGSON=docker run --rm -v $(PWD):/ntc-yang-models yangson yangson
+MODELS_DOC_PATH=docs/models/dynamic
 
-.PHONY: build-oc-pyang-container
-build-oc-pyang-container:
-	docker build -t oc-pyang -f Dockerfile.oc-pyang .
+PYTEST=docker run --rm -v $(PWD):/ntc-yang-models ntc-models-builder pytest
+YANGSON=docker run --rm -v $(PWD):/ntc-yang-models ntc-models-builder yangson
+CTR=docker run --rm -v $(PWD):/ntc-yang-models ntc-models-builder
 
-.PHONY: build-yangson-container
-build-yangson-container:
-	docker build -t yangson -f Dockerfile.yangson .
+.PHONY: build-container
+build-container:
+	docker build --no-cache -t ntc-models-builder -f Dockerfile .
 
 .PHONY: tree
 tree:
@@ -21,36 +19,29 @@ tree:
 tests:
 	$(PYTEST)
 
+.PHONY: _docs
+_docs:
+	cd docs && make html
+
 .PHONY: docs
 docs:
-	$(PYANG) \
-		--plugindir $(OC_PYANG_PLUGINS_DIR) \
+	$(CTR) make _docs
+
+.PHONY: build-model-doc
+build-model-doc:
+	pyang \
+		--plugindir $(PLUGINS_DIR) \
 		-f docs \
 		--path models \
-		--doc-format html \
-		--doc-title="NTC YANG models" \
-		models/arp/*.yang > docs/arp.html
+		--doc-format rst \
+		--strip-ns \
+		models/$(MODEL)/*.yang > $(MODELS_DOC_PATH)/$(MODEL).rst
+
+.PHONY: pyang-help
+pyang-help:
 	$(PYANG) \
-		--plugindir $(OC_PYANG_PLUGINS_DIR) \
-		-f docs \
-		--path models \
-		--doc-format html \
-		--doc-title="NTC YANG models" \
-		models/system/*.yang > docs/system.html
-	$(PYANG) \
-		--plugindir $(OC_PYANG_PLUGINS_DIR) \
-		-f docs \
-		--path models \
-		--doc-format html \
-		--doc-title="NTC YANG models" \
-		models/vlan/*.yang > docs/vlan.html
-	$(PYANG) \
-		--plugindir $(OC_PYANG_PLUGINS_DIR) \
-		-f docs \
-		--path models \
-		--doc-format html \
-		--doc-title="NTC YANG models" \
-		models/vrf/*.yang > docs/vrf.html
+		--plugindir $(PLUGINS_DIR) \
+		--help
 
 .PHONY: lint
 lint:

@@ -5,6 +5,9 @@
 
     prefix "ntc-vlan";
 
+    description
+        "Model to configure and retrieve operational state of VLANs";
+
     revision "2019-05-02" {
         description
             "initial version";
@@ -13,16 +16,22 @@
 
     grouping vlan-config {
         leaf vlan-id {
+            description
+                "VLAN identifier";
             type uint16 {
               range 1..4094;
             }
         }
 
         leaf name {
-          type string;
+            description
+                "VLAN name";
+            type string;
         }
 
         leaf active {
+            description
+                "Whether the VLAN is enabled and bridging traffic or not";
             type boolean;
             default true;
         }
@@ -30,14 +39,22 @@
 
     grouping vlan-state {
         leaf-list members {
+            description
+                "Interfaces in this VLAN";
             type string;
         }
     }
 
     grouping vlan-top {
         container vlan {
+            description
+                "Top-level container for VLAN configuration/state";
             container config {
+                description
+                    "VLAN configuration";
                 list vlans {
+                    description
+                        "List of VLANs";
                     key "vlan-id";
 
                     uses vlan-config;
@@ -45,7 +62,11 @@
             }
 
             container state {
+                description
+                    "VLAN state";
                 list vlans {
+                    description
+                        "List of VLANs";
                     key "vlan-id";
 
                     uses vlan-config;
