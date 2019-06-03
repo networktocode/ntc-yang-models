@@ -9,6 +9,10 @@ module ntc-arp {
     import ntc-types { prefix "ntc-types"; }
     import ietf-yang-types { prefix "yang"; }
 
+    organization "Network To Code LLC.";
+
+    contact "www.networktocode.com";
+
     description
         "Model to configure and retrieve operational state of ARP and ARP entries";
 
@@ -19,6 +23,9 @@ module ntc-arp {
     }
 
     grouping arp-config {
+        description
+            "Reusable block";
+
         leaf timeout {
             description
                 "Cache arp entries for this amount of time (seconds)";
@@ -27,6 +34,9 @@ module ntc-arp {
     }
 
     grouping entries-common-top {
+        description
+            "Reusable block";
+
         leaf hw-address {
             description
                 "Physical address associated to the ARP entry";
@@ -36,11 +46,14 @@ module ntc-arp {
     }
 
     grouping entries-config-top {
+        description
+            "Reusable block";
+
         list entries {
             description
                 "List of ARP entries configured in the system";
 
-            key ip-address;
+            key "ip-address";
             leaf ip-address {
                 description
                     "IP address associated to the ARP entry";
@@ -62,10 +75,13 @@ module ntc-arp {
     }
 
     grouping entries-state-top {
+        description
+            "Reusable block";
+
         list entries {
             description
                 "List of ARP entries in the system";
-            key ip-address;
+            key "ip-address";
             leaf ip-address {
                 description
                     "IP address associated to the ARP entry";
@@ -88,6 +104,9 @@ module ntc-arp {
     }
 
     grouping arp-top {
+        description
+            "Reusable block";
+
         container arp {
             description
                 "Top-level container for ARP model";

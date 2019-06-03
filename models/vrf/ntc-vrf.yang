@@ -21,13 +21,13 @@
 
     grouping vrf-config {
         description
-            "Reusable block with VRF configuration";
+            "Reusable block";
     }
 
 
     grouping vrf-top {
         description
-            "Root object for the vrf model";
+            "Reusable block";
         container vrf {
             description
                 "Top container for VRF configuration and state";

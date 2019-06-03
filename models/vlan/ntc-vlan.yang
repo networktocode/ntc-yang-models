@@ -5,6 +5,10 @@
 
     prefix "ntc-vlan";
 
+    organization "Network To Code LLC.";
+
+    contact "www.networktocode.com";
+
     description
         "Model to configure and retrieve operational state of VLANs";
 
@@ -15,6 +19,8 @@
     }
 
     grouping vlan-config {
+        description
+            "Reusable block";
         leaf vlan-id {
             description
                 "VLAN identifier";
@@ -38,6 +44,8 @@
     }
 
     grouping vlan-state {
+        description
+            "Reusable block";
         leaf-list members {
             description
                 "Interfaces in this VLAN";
@@ -46,12 +54,14 @@
     }
 
     grouping vlan-top {
+        description
+            "Reusable block";
         container vlan {
             description
-                "Top-level container for VLAN configuration/state";
+                "Top-level container for VLAN configuration and state";
             container config {
                 description
-                    "VLAN configuration";
+                    "Top-level container for VLAN configuration";
                 list vlans {
                     description
                         "List of VLANs";
@@ -63,7 +73,7 @@
 
             container state {
                 description
-                    "VLAN state";
+                    "Top-level container for VLAN state";
                 list vlans {
                     description
                         "List of VLANs";

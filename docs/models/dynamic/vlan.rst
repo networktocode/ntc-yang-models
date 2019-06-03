@@ -8,7 +8,7 @@ Data nodes
 /vlan
 -----
 
-Top-level container for VLAN configuration/state
+Top-level container for VLAN configuration and state
 
 **nodetype**: ``container``
 
@@ -18,7 +18,7 @@ Top-level container for VLAN configuration/state
 /vlan/config
 ------------
 
-VLAN configuration
+Top-level container for VLAN configuration
 
 **nodetype**: ``container``
 
@@ -80,7 +80,7 @@ Whether the VLAN is enabled and bridging traffic or not
 /vlan/state
 -----------
 
-VLAN state
+Top-level container for VLAN state
 
 **nodetype**: ``container``
 

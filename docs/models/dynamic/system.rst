@@ -1,7 +1,7 @@
 ntc-system
 ##########
 
-
+Model to configure and retrieve system data
 
 Types
 =====
@@ -14,18 +14,21 @@ SNMP version
 **type**: ``enumeration``
 
 
-* ``1``: SNMP version 1
+* ``SNMP_VERESION_1``: SNMP version 1
 
 
-* ``2c``: SNMP version 2c
+* ``SNMP_VERSION_2C``: SNMP version 2c
 
 
-* ``3``: SNMP version 3
+* ``SNMP_VERSION_3``: SNMP version 3
 
 Data nodes
 ==========
 /system
 -------
+
+Top level container for system configuration and state
+
 **nodetype**: ``container``
 
 
@@ -33,6 +36,9 @@ Data nodes
 
 /system/config
 --------------
+
+Top level container for system configuration
+
 **nodetype**: ``container``
 
 
@@ -40,6 +46,9 @@ Data nodes
 
 /system/config/snmp
 -------------------
+
+Top level container for SNMP configuration
+
 **nodetype**: ``container``
 
 
@@ -47,6 +56,9 @@ Data nodes
 
 /system/config/snmp/communities
 -------------------------------
+
+List of communities in the system
+
 **nodetype**: ``list``
 
 
@@ -54,6 +66,9 @@ Data nodes
 
 /system/config/snmp/communities/name
 ------------------------------------
+
+Name of community
+
 **nodetype**: ``leaf`` (list key)
 
 **Type**: ``string``
@@ -64,6 +79,9 @@ Data nodes
 
 /system/config/snmp/communities/version
 ---------------------------------------
+
+SNMP version allowed by the community
+
 **nodetype**: ``leaf``
 
 **Type**: ``snmp-version``
@@ -74,6 +92,9 @@ Data nodes
 
 /system/config/snmp/communities/access-list
 -------------------------------------------
+
+Access list protecting the community
+
 **nodetype**: ``container``
 
 
@@ -81,6 +102,9 @@ Data nodes
 
 /system/config/snmp/communities/access-list/ipv4
 ------------------------------------------------
+
+IPv4 access-list
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -91,6 +115,9 @@ Data nodes
 
 /system/config/snmp/communities/access-list/ipv6
 ------------------------------------------------
+
+IPv6 access-list
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -101,6 +128,9 @@ Data nodes
 
 /system/config/snmp/name
 ------------------------
+
+Name of the commnity
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -111,6 +141,9 @@ Data nodes
 
 /system/config/snmp/description
 -------------------------------
+
+Description of the system
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -121,6 +154,9 @@ Data nodes
 
 /system/config/snmp/contact
 ---------------------------
+
+Contact information for the system
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -131,6 +167,9 @@ Data nodes
 
 /system/config/snmp/location
 ----------------------------
+
+Location information of the system
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -141,6 +180,9 @@ Data nodes
 
 /system/state
 -------------
+
+Top level container for system state
+
 **nodetype**: ``container``
 
 
@@ -148,6 +190,9 @@ Data nodes
 
 /system/state/snmp
 ------------------
+
+Top level container for SNMP state
+
 **nodetype**: ``container``
 
 
@@ -155,6 +200,9 @@ Data nodes
 
 /system/state/snmp/communities
 ------------------------------
+
+List of communities in the system
+
 **nodetype**: ``list``
 
 
@@ -162,6 +210,9 @@ Data nodes
 
 /system/state/snmp/communities/name
 -----------------------------------
+
+Name of community
+
 **nodetype**: ``leaf`` (list key)
 
 **Type**: ``string``
@@ -172,6 +223,9 @@ Data nodes
 
 /system/state/snmp/communities/version
 --------------------------------------
+
+SNMP version allowed by the community
+
 **nodetype**: ``leaf``
 
 **Type**: ``snmp-version``
@@ -182,6 +236,9 @@ Data nodes
 
 /system/state/snmp/communities/access-list
 ------------------------------------------
+
+Access list protecting the community
+
 **nodetype**: ``container``
 
 
@@ -189,6 +246,9 @@ Data nodes
 
 /system/state/snmp/communities/access-list/ipv4
 -----------------------------------------------
+
+IPv4 access-list
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -199,6 +259,9 @@ Data nodes
 
 /system/state/snmp/communities/access-list/ipv6
 -----------------------------------------------
+
+IPv6 access-list
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -209,6 +272,9 @@ Data nodes
 
 /system/state/snmp/name
 -----------------------
+
+Name of the commnity
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -219,6 +285,9 @@ Data nodes
 
 /system/state/snmp/description
 ------------------------------
+
+Description of the system
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -229,6 +298,9 @@ Data nodes
 
 /system/state/snmp/contact
 --------------------------
+
+Contact information for the system
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``
@@ -239,6 +311,9 @@ Data nodes
 
 /system/state/snmp/location
 ---------------------------
+
+Location information of the system
+
 **nodetype**: ``leaf``
 
 **Type**: ``string``

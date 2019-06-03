@@ -15,8 +15,12 @@ def get_data(model, filename):
 
 
 class TestARP:
-    def test_correct_config(self, datamodel):
-        data = datamodel.from_raw(get_data("arp", "correct_config.json"))
+    def test_correct_config_ipv4(self, datamodel):
+        data = datamodel.from_raw(get_data("arp", "correct_config_ipv4.json"))
+        data.validate()
+
+    def test_correct_config_ipv6(self, datamodel):
+        data = datamodel.from_raw(get_data("arp", "correct_config_ipv6.json"))
         data.validate()
 
     def test_correct_state(self, datamodel):

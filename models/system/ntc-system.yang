@@ -7,6 +7,13 @@
 
     include ntc-system-snmp;
 
+    organization "Network To Code LLC.";
+
+    contact "www.networktocode.com";
+
+    description
+        "Model to configure and retrieve system data";
+
     revision "2019-05-02" {
         description
             "initial version";
@@ -14,12 +21,21 @@
     }
 
     grouping system-top {
+        description
+            "Reusable block";
+
         container system {
+            description
+                "Top level container for system configuration and state";
             container config {
+                description
+                    "Top level container for system configuration";
                 uses snmp-config-top;
             }
 
             container state {
+                description
+                    "Top level container for system state";
                 config false;
 
                 uses snmp-state-top;
